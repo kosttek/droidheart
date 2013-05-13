@@ -16,6 +16,8 @@ import com.example.heartdroid.services.ConnectionService;
 import com.example.heartdroid.services.ConnectionService.ConnectionBinder;
 import com.example.heartdroid.services.ConnectionService.ConnectionListener;
 import com.example.heartdroid.services.ConnectionService.ResultListener;
+import com.example.heartdroid.workshop.ReqestCreator;
+import com.example.heartdroid.workshop.SimpleMessageParser;
 
 public class MainActivity extends Activity {
 
@@ -92,13 +94,16 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void onSuccess() {
-			mService.send("[model,getlist].", new ResultMainListener());
+			ReqestCreator reqestCreator = new ReqestCreator();
+			String request = reqestCreator.temperatureRequest();
+			
+			mService.send(request, new ResultMainListener());
 
 		}
 
 		@Override
 		public void onFailure() {
-			// TODO Auto-generated method stub
+			textView.setText("couldn't connect");
 
 		}
 
@@ -109,7 +114,8 @@ public class MainActivity extends Activity {
 		@Override
 		public void onSuccess(String message) {
 			// TODO Auto-generated method stub
-			textView.setText(message);
+			SimpleMessageParser simpleMessageParser = new SimpleMessageParser();
+			textView.setText(simpleMessageParser.getTemperature(message)+" oC");
 		}
 
 		@Override

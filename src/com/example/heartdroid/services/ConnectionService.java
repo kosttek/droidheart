@@ -44,9 +44,13 @@ public class ConnectionService extends Service {
 		return mBinder;
 	}
 	
-	public void startConnection(String hostname, int port,ConnectionListener listener) {
+	public void setHostnameAndPort(String hostname, int port){
 		this.hostname = hostname;
 		this.port = port;
+	}
+	
+	public void startConnection(String hostname, int port,ConnectionListener listener) {
+		setHostnameAndPort(hostname, port);
 		
 		startConnectionTask.execute(listener);
 		
@@ -54,7 +58,7 @@ public class ConnectionService extends Service {
 	
 	
 	
-	protected void startConnection() throws UnknownHostException, IOException {
+	public void startConnection() throws UnknownHostException, IOException {
 		try {
 			closeConnection();
 			
@@ -101,7 +105,7 @@ public class ConnectionService extends Service {
 	}
 	
 	
-	protected String send(String message) {
+	public String send(String message) {
 		
 		getOut().println(message);
 		getOut().flush();
