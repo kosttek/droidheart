@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.heartdroid.R;
@@ -38,6 +39,21 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+			case R.id.menu_request:
+				goToPickDateActivity();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	private void goToPickDateActivity(){
+		Intent intent = new Intent(this, PickDateActivity.class);
+		startActivity(intent);
 	}
 
 	@Override
@@ -77,19 +93,7 @@ public class MainActivity extends Activity {
 		}
 	};
 
-	// class TelnetTask extends AsyncTask<Void, Void, String>{
-	//
-	// @Override
-	// protected String doInBackground(Void... params) {
-	// mService.startConnection("localhost", 8090);
-	// return mService.send("[model,getlist].")+"";
-	// }
-	// @Override
-	// protected void onPostExecute(String result) {
-	// super.onPostExecute(result);
-	// textView.setText(result);
-	// }
-	// }
+
 	class ConnectionMainListener implements ConnectionListener {
 
 		@Override
