@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.example.heartdroid.workshop.ReqestCreator;
+import com.example.heartdroid.workshop.RequestData;
 import com.example.heartdroid.workshop.SimpleMessageParser;
 
 import android.test.AndroidTestCase;
@@ -47,6 +48,23 @@ public class MessagesTest  extends AndroidTestCase{
 				
 	}
 	
+	public void testCreateTemperatureRequestRequestData(){
+		String day = "mon";
+		int month = 3;
+		int hour = 13;
+		String requestExpected = "[model,run,'thermostat','user2',ddi,[ms,dt,th,os],[[day,"+day+"],[hour,"+hour+"],[month,"+month+"]]].";
+		ReqestCreator reqestCreator = new ReqestCreator();
+		
+		RequestData requestData = new RequestData();
+		requestData.day = 2;
+		requestData.month = 3;
+		requestData.hour = 13;
+		
+		String request = reqestCreator.temperatureRequest(requestData);
+		assertEquals(requestExpected, request);
+	}
+	
+
 	public void testDayOfWeek(){
 		ReqestCreator reqestCreator = new ReqestCreator();
 		assertEquals(reqestCreator.dayOfWeek(Calendar.MONDAY), "mon");

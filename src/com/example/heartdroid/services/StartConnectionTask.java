@@ -34,6 +34,8 @@ public class StartConnectionTask extends AsyncTask<Object , Void, Boolean> {
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
+		if(connectionListener == null)
+			return;
 		if(result){
 			connectionListener.onSuccess();
 		}else{

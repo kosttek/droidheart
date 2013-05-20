@@ -23,6 +23,20 @@ public class ReqestCreator {
 		return request;
 	}
 	
+	public String temperatureRequest(RequestData requestData){
+		int day = requestData.day; 
+		int month = requestData.month+1;
+		int hour = requestData.hour+1;
+		return makeRequestTextTemperature(hour, day, month);
+	}
+	
+	public String makeRequestTextTemperature(int hourInt ,int dayInt, int monthInt){
+		String day = dayOfWeek(dayInt);
+		int month = monthInt;
+		int hour = hourInt;
+		String request = "[model,run,'thermostat','user2',ddi,[ms,dt,th,os],[[day,"+day+"],[hour,"+hour+"],[month,"+month+"]]].";
+		return request;
+	}
 	
 	
 	public String dayOfWeek(int calendarDay){		

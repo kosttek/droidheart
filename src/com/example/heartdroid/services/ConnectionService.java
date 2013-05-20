@@ -20,8 +20,8 @@ public class ConnectionService extends Service {
 	String hostname ;
 	int port;
 	
-	SendRequestTask sendRequestTask = new SendRequestTask(this);
-	StartConnectionTask startConnectionTask = new StartConnectionTask(this);
+
+	
 
 	private Socket echoSocket = null;
 	private PrintWriter out = null;
@@ -51,7 +51,7 @@ public class ConnectionService extends Service {
 	
 	public void startConnection(String hostname, int port,ConnectionListener listener) {
 		setHostnameAndPort(hostname, port);
-		
+		StartConnectionTask startConnectionTask = new StartConnectionTask(this);
 		startConnectionTask.execute(listener);
 		
 	}
@@ -101,6 +101,7 @@ public class ConnectionService extends Service {
 	
 	public void send(String message , ResultListener listener){
 		Object [] params = {listener,message};
+		SendRequestTask sendRequestTask = new SendRequestTask(this);
 		sendRequestTask.execute(params);
 	}
 	
